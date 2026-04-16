@@ -2,24 +2,23 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const basicAuth = request.headers.get('authorization')
+  const { pathname } = request.nextUrl
 
-  if (basicAuth) {
-    const [user, pwd] = atob(basicAuth.split(' ')[1]).split(':')
-    const validPassword = process.env.DASHBOARD_PASSWORD
-    const validUser = process.env.DASHBOARD_USER || 'lh'
-
-    if (validPassword && user === validUser && pwd === validPassword) {
-      return NextResponse.next()
-    }
+  // Allow login page and auth API through without a cookie
+  if (pathname === '/login' || pathname === '/api/auth') {
+    return NextResponse.next()
   }
 
-  return new NextResponse('Access denied', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': 'Basic realm="LH PM Dashboard - SiteMinder Internal"',
-    },
-  })
+  const validPassword = process.env.DASHBOARD_PASSWORD
+  const authCookie = request.cookies.get('lh-auth')
+
+  if (validPassword && authCookie?.value === validPassword) {
+    return NextResponse.next()
+  }
+
+  // Redirect to login page
+  const loginUrl = new URL('/login', request.url)
+  return NextResponse.redirect(loginUrl)
 }
 
 export const config = {
