@@ -59,7 +59,7 @@ export default function ChurnSection() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <MetricCard
           label="Monthly Churn Rate"
-          value={`${latest?.monthlyChurnRate.toFixed(2)}%`}
+          value={`${(latest?.monthlyChurnRate ?? 0).toFixed(2)}%`}
           trend={latest && prev ? latest.monthlyChurnRate - prev.monthlyChurnRate : undefined}
           trendLabel="pp vs prior month"
           good="down"
