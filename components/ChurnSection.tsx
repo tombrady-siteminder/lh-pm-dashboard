@@ -52,6 +52,13 @@ export default function ChurnSection() {
   const retentionRate = latest ? 100 - latest.monthlyChurnRate : 0
   const netNew = latest ? latest.newCustomers - latest.churned : 0
 
+  // Simple annualisation (monthly × 12) — matches how it is typically quoted in leadership meetings
+  const annualisedSeries = series.map(r => ({
+    month: r.month,
+    annualisedChurnRate: Math.round(r.monthlyChurnRate * 12 * 10) / 10,
+  }))
+  const latestAnnualised = latest ? Math.round(latest.monthlyChurnRate * 12 * 10) / 10 : 0
+
   return (
     <section id="churn" className="mb-12">
       <SectionHeader
@@ -117,6 +124,36 @@ export default function ChurnSection() {
               stroke="#f59e0b"
               strokeWidth={2}
               dot={{ fill: '#f59e0b', r: 3 }}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Annualised churn */}
+      <div className="bg-slate-900 rounded-xl border border-slate-800 p-5 mt-4">
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">Annualised Churn Rate — Rolling 12 months</p>
+          <span className="text-xs text-slate-400">Current: <span className="font-semibold text-slate-200">{latestAnnualised}%</span> <span className="text-slate-600">(monthly × 12)</span></span>
+        </div>
+        <ResponsiveContainer width="100%" height={220}>
+          <LineChart data={annualisedSeries} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+            <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 11 }} />
+            <YAxis tickFormatter={v => `${v}%`} tick={{ fill: '#64748b', fontSize: 11 }} domain={[0, 50]} />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155', borderRadius: 8 }}
+              labelStyle={{ color: '#94a3b8' }}
+              formatter={(v) => [`${Number(v).toFixed(1)}%`, 'Annualised churn']}
+            />
+            <ReferenceLine y={30} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: '30% target', fill: '#f59e0b', fontSize: 10 }} />
+            <ReferenceLine y={36} stroke="#ef4444" strokeDasharray="4 4" label={{ value: '36% red', fill: '#ef4444', fontSize: 10 }} />
+            <Line
+              type="monotone"
+              dataKey="annualisedChurnRate"
+              stroke="#a78bfa"
+              strokeWidth={2}
+              dot={{ fill: '#a78bfa', r: 3 }}
               activeDot={{ r: 5 }}
             />
           </LineChart>
