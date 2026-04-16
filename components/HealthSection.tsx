@@ -64,6 +64,7 @@ export default function HealthSection() {
       <SectionHeader
         title="Health Summary"
         subtitle={`RAG status · ${data.asOfMonth ? `Data as of ${data.asOfMonth}` : 'Latest snapshot'}${data.isMock ? ' · Demo data' : ''}`}
+        info="Red/Amber/Green status across four KPIs. Churn: <2.5% = green, 2.5–3% = amber, >3% = red. Active customers and MRR go green if growing month-on-month. PESI migration: >60% migrated = green, 40–60% = amber, <40% = red."
       />
       <div className="flex flex-wrap gap-3">
         <RAGBadge

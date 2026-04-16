@@ -45,6 +45,7 @@ export default function FeaturesSection() {
       <SectionHeader
         title="Feature Adoption"
         subtitle={`% of ${fmt(data.total)} active LH customers with each feature enabled${data.isMock ? ' · Demo data' : ''}`}
+        info="Percentage of active LH customers with each product feature enabled. Derived from HAS_* boolean flags in MART_ACTIVE_CUSTOMERS (e.g. HAS_SMPAY, HAS_LHBE, HAS_DR_PLUS). Sorted highest to lowest penetration."
       />
 
       <div className="bg-slate-900 rounded-xl border border-slate-800 p-5 mb-4">

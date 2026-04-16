@@ -60,7 +60,11 @@ export default function CustomersSection() {
 
   return (
     <section id="customers" className="mb-12">
-      <SectionHeader title="Active Customers & Growth" subtitle="LH brand · end-of-month snapshots" />
+      <SectionHeader
+        title="Active Customers & Growth"
+        subtitle="LH brand · end-of-month snapshots"
+        info="Active customer count and Net MRR at end-of-month snapshots. MoM = month-on-month change vs the prior month. YoY = change vs the earliest month in the 12-month window. Source: MART_ACTIVE_CUSTOMERS (EDMA_PROD.EDMA_STRATOPS)."
+      />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <MetricCard

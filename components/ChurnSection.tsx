@@ -54,7 +54,11 @@ export default function ChurnSection() {
 
   return (
     <section id="churn" className="mb-12">
-      <SectionHeader title="Churn & Retention" subtitle="Rolling 3-month churn methodology · LH brand" />
+      <SectionHeader
+        title="Churn & Retention"
+        subtitle="Rolling 3-month churn methodology · LH brand"
+        info="Monthly churn rate = customers churned over 3 months ÷ (3 × starting base) × 100. The rolling 3-month window smooths seasonal spikes. To annualise, multiply by 12 — e.g. 2.5%/month ≈ 30%/year. Aoife's quoted 30–40% figure refers to this annualised rate, which is consistent with our monthly numbers."
+      />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <MetricCard

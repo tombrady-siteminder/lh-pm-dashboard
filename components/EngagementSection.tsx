@@ -51,6 +51,7 @@ export default function EngagementSection() {
       <SectionHeader
         title="Engagement Signals"
         subtitle={`Last 30 days · ${fmt(data.total)} LH customers with health scores${data.isMock ? ' · Demo data' : ''}`}
+        info="Engagement data sourced from LH_HEALTH_SCORES. Health score is a composite 0–10 metric combining login frequency, feature usage, and occupancy. Login days = distinct calendar days with at least one session in the last 30 days. At-risk = customers with zero logins in 30 days — a leading indicator of churn."
       />
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

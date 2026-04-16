@@ -60,6 +60,7 @@ export default function PesiSection() {
       <SectionHeader
         title="PESI Migration Tracker"
         subtitle={`Platform migration progress · ${data.isMock ? 'Demo data' : 'Live'}`}
+        info="Tracks migration from LHP (legacy platform) to PESI (the new LH platform). The split is derived from the LH_PLATFORM_F flag in MART_ACTIVE_CUSTOMERS. Migration velocity shows how many customers moved to PESI each month. Green threshold: >60% of the LH base migrated."
       />
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
